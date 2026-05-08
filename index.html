@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width,
+    initial-scale=1.0">
+  <title>Hone — AI Fitness Coach</title>
+  <meta name="description"
+    content="Generate custom workout and
+    nutrition plans in seconds.
+    Powered by AI.">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system,
+        BlinkMacSystemFont, sans-serif;
+      background: #0A0A0A;
+      color: #FFFFFF;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      border-bottom: 1px solid #1A1A1A;
+      position: sticky;
+      top: 0;
+      background: #0A0A0A;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-size: 24px;
+      font-weight: 800;
+      color: #FF6B35;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: #888888;
+      text-decoration: none;
+      font-size: 15px;
+    }
+    .nav-links a:hover {
+      color: #FFFFFF;
+    }
+    .hero {
+      text-align: center;
+      padding: 100px 20px 80px;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: #1A1A1A;
+      color: #FF6B35;
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      border: 1px solid #2A2A2A;
+    }
+    .hero h1 {
+      font-size: 56px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero h1 span {
+      color: #FF6B35;
+    }
+    .hero p {
+      font-size: 18px;
+      color: #888888;
+      max-width: 480px;
+      margin: 0 auto 48px;
+      line-height: 1.6;
+    }
+    .badges {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #1A1A1A;
+      color: #FFFFFF;
+      padding: 14px 24px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      border: 1px solid #2A2A2A;
+      transition: all 0.2s;
+    }
+    .badge:hover {
+      background: #FF6B35;
+      border-color: #FF6B35;
+    }
+    .badge-icon {
+      font-size: 20px;
+    }
+    .badge-text-small {
+      font-size: 11px;
+      font-weight: 400;
+      color: #888888;
+      display: block;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+    .badge:hover .badge-text-small {
+      color: rgba(255,255,255,0.7);
+    }
+    .badge-text-large {
+      font-size: 16px;
+      font-weight: 700;
+      display: block;
+      line-height: 1;
+    }
+    .coming-soon {
+      color: #555555;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+    .features {
+      padding: 80px 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .features-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .features-header h2 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .features-header p {
+      color: #888888;
+      font-size: 16px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .feature-card {
+      background: #1A1A1A;
+      padding: 32px;
+      border-radius: 20px;
+      border: 1px solid #2A2A2A;
+      transition: border-color 0.2s;
+    }
+    .feature-card:hover {
+      border-color: #FF6B35;
+    }
+    .feature-icon {
+      font-size: 36px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .feature-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #FFFFFF;
+    }
+    .feature-card p {
+      color: #888888;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .how-it-works {
+      padding: 80px 20px;
+      background: #0D0D0D;
+      text-align: center;
+    }
+    .how-it-works h2 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .how-it-works .subtitle {
+      color: #888888;
+      margin-bottom: 60px;
+    }
+    .steps {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .step {
+      background: #1A1A1A;
+      border-radius: 20px;
+      padding: 32px;
+      width: 260px;
+      border: 1px solid #2A2A2A;
+      text-align: left;
+    }
+    .step-number {
+      width: 36px;
+      height: 36px;
+      background: #FF6B35;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+    .step h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .step p {
+      color: #888888;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .pricing {
+      padding: 80px 20px;
+      text-align: center;
+    }
+    .pricing h2 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .pricing .subtitle {
+      color: #888888;
+      margin-bottom: 60px;
+    }
+    .plans {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .plan {
+      background: #1A1A1A;
+      padding: 36px;
+      border-radius: 20px;
+      width: 260px;
+      border: 1px solid #2A2A2A;
+      text-align: left;
+    }
+    .plan.featured {
+      border-color: #FF6B35;
+      position: relative;
+    }
+    .popular-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #FF6B35;
+      color: white;
+      padding: 4px 16px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .plan h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .plan .price {
+      font-size: 40px;
+      font-weight: 800;
+      color: #FF6B35;
+      margin-bottom: 4px;
+      line-height: 1;
+    }
+    .plan .price span {
+      font-size: 16px;
+      font-weight: 400;
+      color: #888888;
+    }
+    .plan .price-desc {
+      color: #888888;
+      font-size: 13px;
+      margin-bottom: 24px;
+    }
+    .plan-divider {
+      border: none;
+      border-top: 1px solid #2A2A2A;
+      margin-bottom: 24px;
+    }
+    .plan ul {
+      list-style: none;
+    }
+    .plan ul li {
+      color: #CCCCCC;
+      font-size: 14px;
+      padding: 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .plan ul li::before {
+      content: "✓";
+      color: #FF6B35;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .plan ul li.disabled {
+      color: #555555;
+    }
+    .plan ul li.disabled::before {
+      content: "✕";
+      color: #555555;
+    }
+    .cta {
+      padding: 80px 20px;
+      text-align: center;
+      background: #0D0D0D;
+    }
+    .cta h2 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .cta p {
+      color: #888888;
+      font-size: 16px;
+      margin-bottom: 40px;
+    }
+    footer {
+      padding: 40px 20px;
+      border-top: 1px solid #1A1A1A;
+      text-align: center;
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .footer-links a {
+      color: #888888;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .footer-links a:hover {
+      color: #FF6B35;
+    }
+    .footer-copy {
+      color: #555555;
+      font-size: 13px;
+    }
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 36px;
+      }
+      nav {
+        padding: 16px 20px;
+      }
+      .nav-links {
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">
+      Hone
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="support.html">Support</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-badge">
+      🤖 Powered by Claude AI
+    </div>
+    <h1>
+      Your Personal
+      <span>AI Fitness</span>
+      Coach
+    </h1>
+    <p>
+      Generate custom workout and
+      nutrition plans in seconds.
+      Built for your goals, your
+      equipment, and your life.
+    </p>
+    <div class="badges">
+      <a class="badge" href="#"
+        id="ios-badge">
+        <span class="badge-icon">🍎</span>
+        <span>
+          <span class="badge-text-small">
+            Download on the
+          </span>
+          <span class="badge-text-large">
+            App Store
+          </span>
+        </span>
+      </a>
+      <a class="badge" href="#"
+        id="android-badge">
+        <span class="badge-icon">▶</span>
+        <span>
+          <span class="badge-text-small">
+            Get it on
+          </span>
+          <span class="badge-text-large">
+            Google Play
+          </span>
+        </span>
+      </a>
+    </div>
+    <p class="coming-soon">
+      Coming soon to iOS and Android
+    </p>
+  </div>
+
+  <div class="features" id="features">
+    <div class="features-header">
+      <h2>Everything you need to
+        reach your goals</h2>
+      <p>Hone combines AI coaching with
+         a complete workout experience</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">
+          🏋️
+        </span>
+        <h3>AI Generated Workouts</h3>
+        <p>Custom strength and cardio
+           plans built for your goals,
+           equipment, and experience
+           level. Generated in seconds.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">
+          🥗
+        </span>
+        <h3>Personalized Nutrition</h3>
+        <p>Daily meal plans with real
+           food people actually want
+           to eat. Macros calculated
+           automatically for your goals.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">
+          ▶️
+        </span>
+        <h3>Workout Player</h3>
+        <p>Step by step guidance through
+           every set. Rest timers, form
+           cues, and automatic rest
+           periods built in.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">
+          📈
+        </span>
+        <h3>Progress Tracking</h3>
+        <p>Track every workout and watch
+           your strength increase session
+           over session with automatic
+           weight progression.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">
+          🔔
+        </span>
+        <h3>Meal Reminders</h3>
+        <p>Get notified at meal times
+           so you never miss a meal
+           in your nutrition plan.
+           Fully customizable times.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">
+          💪
+        </span>
+        <h3>Starter Plans</h3>
+        <p>Not sure where to start?
+           Free beginner workout and
+           nutrition plans available
+           to everyone at no cost.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="how-it-works">
+    <h2>How it works</h2>
+    <p class="subtitle">
+      Get your personalized plan
+      in three simple steps
+    </p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Set up your profile</h3>
+        <p>Tell Hone your fitness level,
+           goals, and available equipment.
+           Takes less than 2 minutes.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Generate your plan</h3>
+        <p>Ask Hone for a workout or
+           nutrition plan. Your AI coach
+           builds it instantly based
+           on your profile.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Start training</h3>
+        <p>Follow along with the workout
+           player. Track your progress
+           and watch your strength
+           grow over time.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pricing" id="pricing">
+    <h2>Simple pricing</h2>
+    <p class="subtitle">
+      Start free. Upgrade when
+      you are ready.
+    </p>
+    <div class="plans">
+      <div class="plan">
+        <h3>Free</h3>
+        <div class="price">
+          $0
+        </div>
+        <p class="price-desc">
+          Forever free
+        </p>
+        <hr class="plan-divider">
+        <ul>
+          <li>6 starter workout plans</li>
+          <li>6 starter nutrition plans</li>
+          <li>Full workout player</li>
+          <li>Progress tracking</li>
+          <li>Meal reminders</li>
+          <li class="disabled">
+            AI generated plans
+          </li>
+          <li class="disabled">
+            Custom workouts
+          </li>
+        </ul>
+      </div>
+      <div class="plan featured">
+        <div class="popular-badge">
+          Most Popular
+        </div>
+        <h3>Basic</h3>
+        <div class="price">
+          $4.99
+          <span>/mo</span>
+        </div>
+        <p class="price-desc">
+          Billed monthly
+        </p>
+        <hr class="plan-divider">
+        <ul>
+          <li>Everything in Free</li>
+          <li>125 AI plans per month</li>
+          <li>Custom workout plans</li>
+          <li>Custom nutrition plans</li>
+          <li>AI fitness coaching</li>
+        </ul>
+      </div>
+      <div class="plan">
+        <h3>Pro</h3>
+        <div class="price">
+          $9.99
+          <span>/mo</span>
+        </div>
+        <p class="price-desc">
+          Billed monthly
+        </p>
+        <hr class="plan-divider">
+        <ul>
+          <li>Everything in Basic</li>
+          <li>375 AI plans per month</li>
+          <li>Priority support</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <h2>
+      Start your fitness journey today
+    </h2>
+    <p>
+      Download Hone and get your first
+      workout plan in seconds.
+      Free to start — no credit card needed.
+    </p>
+    <div class="badges">
+      <a class="badge" href="#"
+        id="ios-badge-2">
+        <span class="badge-icon">🍎</span>
+        <span>
+          <span class="badge-text-small">
+            Download on the
+          </span>
+          <span class="badge-text-large">
+            App Store
+          </span>
+        </span>
+      </a>
+      <a class="badge" href="#"
+        id="android-badge-2">
+        <span class="badge-icon">▶</span>
+        <span>
+          <span class="badge-text-small">
+            Get it on
+          </span>
+          <span class="badge-text-large">
+            Google Play
+          </span>
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="privacy.html">
+        Privacy Policy
+      </a>
+      <a href="terms.html">
+        Terms of Service
+      </a>
+      <a href="support.html">Support</a>
+    </div>
+    <p class="footer-copy">
+      © 2026 Hone. All rights reserved.
+    </p>
+  </footer>
+
+</body>
+</html>
