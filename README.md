@@ -20,4 +20,4 @@ plans tailored to your goals in seconds.
 
 ## Contact
 
-support@honefitness.com
+honefitness.support@gmail.com
