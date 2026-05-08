@@ -5,10 +5,10 @@ Hone AI Fitness Coach app.
 
 ## Pages
 
-- [Home](https://brycekanter.github.io/hone-web)
-- [Privacy Policy](https://brycekanter.github.io/hone-web/privacy-policy.html)
-- [Terms of Service](https://brycekanter.github.io/hone-web/terms-of-service.html)
-- [Support](https://brycekanter.github.io/hone-web/support.html)
+- [Home](https://brycekanfer.github.io/hone-web)
+- [Privacy Policy](https://brycekanfer.github.io/hone-web/privacy-policy.html)
+- [Terms of Service](https://brycekanfer.github.io/hone-web/terms-of-service.html)
+- [Support](https://brycekanfer.github.io/hone-web/support.html)
 
 ## About
 
